@@ -93,24 +93,102 @@ for _ in range(95):
                         random.randint(2, 5)))
 random.seed()
 
+
 def draw_arena():
-    screen.fill((20, 25, 28))
-    # Floor tiles
+    # Dark, gritty concrete floor
+    screen.fill((13, 16, 17))
+
+    # Uneven concrete tiles
     tile = 50
     for x in range(0, WIDTH, tile):
         for y in range(0, HEIGHT, tile):
-            shade = 24 if ((x // tile + y // tile) % 2 == 0) else 28
-            pygame.draw.rect(screen, (shade, shade + 3, shade + 4),
-                             (x, y, tile, tile))
+            shade = 24 if ((x // tile + y // tile) % 2 == 0) else 29
+            pygame.draw.rect(
+                screen,
+                (shade, shade + 2, shade + 2),
+                (x, y, tile, tile)
+            )
+
+            # Worn tile seams
+            pygame.draw.line(
+                screen, (17, 20, 21),
+                (x, y), (x + tile, y), 1
+            )
+            pygame.draw.line(
+                screen, (17, 20, 21),
+                (x, y), (x, y + tile), 1
+            )
+
+    # Existing floor marks
     for x, y, radius in floor_marks:
-        pygame.draw.circle(screen, (37, 43, 43), (x, y), radius)
-    # Arena boundary
-    pygame.draw.rect(screen, (82, 91, 90), (5, 5, WIDTH - 10, HEIGHT - 10), 4, border_radius=8)
-    pygame.draw.rect(screen, (12, 15, 18), (12, 12, WIDTH - 24, HEIGHT - 24), 2, border_radius=7)
-    # Decorative corner warning stripes
+        pygame.draw.circle(
+            screen, (35, 38, 36), (x, y), radius
+        )
+        pygame.draw.circle(
+            screen, (19, 22, 21), (x - 2, y - 2),
+            max(2, radius // 2), 1
+        )
+
+    # Random-looking cracks, fixed in place
+    for x, y in [
+        (140, 170), (350, 410), (610, 150),
+        (790, 470), (900, 250), (440, 100)
+    ]:
+        pygame.draw.line(
+            screen, (10, 13, 13),
+            (x, y), (x + 13, y + 8), 2
+        )
+        pygame.draw.line(
+            screen, (10, 13, 13),
+            (x + 13, y + 8), (x + 23, y + 4), 2
+        )
+        pygame.draw.line(
+            screen, (10, 13, 13),
+            (x + 13, y + 8), (x + 18, y + 19), 2
+        )
+
+    # Scattered debris
+    for x, y in [
+        (95, 115), (265, 310), (520, 235),
+        (720, 120), (865, 390), (180, 520),
+        (570, 530), (950, 180), (390, 190)
+    ]:
+        pygame.draw.polygon(
+            screen, (42, 43, 39),
+            [(x, y), (x + 7, y - 3), (x + 12, y + 4),
+             (x + 4, y + 8)]
+        )
+        pygame.draw.line(
+            screen, (20, 22, 21),
+            (x, y), (x + 8, y + 5), 1
+        )
+
+    # Dark perimeter and worn outer boundary
+    pygame.draw.rect(
+        screen, (7, 9, 10),
+        (0, 0, WIDTH, HEIGHT), 12
+    )
+    pygame.draw.rect(
+        screen, (67, 69, 63),
+        (5, 5, WIDTH - 10, HEIGHT - 10),
+        3, border_radius=8
+    )
+    pygame.draw.rect(
+        screen, (11, 14, 15),
+        (12, 12, WIDTH - 24, HEIGHT - 24),
+        2, border_radius=7
+    )
+
+    # Faded hazard markings at the top and bottom
     for x in range(22, 92, 14):
-        pygame.draw.line(screen, (130, 91, 45), (x, 20), (x + 8, 20), 4)
-        pygame.draw.line(screen, (130, 91, 45), (x, HEIGHT - 20), (x + 8, HEIGHT - 20), 4)
+        pygame.draw.line(
+            screen, (105, 70, 34),
+            (x, 20), (x + 8, 20), 4
+        )
+        pygame.draw.line(
+            screen, (105, 70, 34),
+            (x, HEIGHT - 20), (x + 8, HEIGHT - 20), 4
+        )
 
 class PowerUp:
     def __init__(self, x, y, kind):
