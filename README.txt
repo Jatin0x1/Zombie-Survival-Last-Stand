@@ -1,42 +1,25 @@
 ZOMBIE SURVIVAL: THE LAST STAND
-===============================
 
-REQUIREMENTS
-- Python 3.10+ recommended
-- pygame
+Run from this folder:
+  python -m pip install -r requirements.txt
+  python main.py
 
-INSTALL
-1. Open this folder in VS Code.
-2. Open Terminal > New Terminal.
-3. Run:
-   py -m pip install pygame
-4. Run:
-   py main.py
+Controls
+  WASD / Arrow keys: move
+  Mouse: aim and fire
+  1 / 2 / 3: pistol / shotgun / rifle
+  R: reload
+  F: flashlight
+  ESC / P: pause or resume
+  M: return to title menu while playing
+  F11 / Alt+Enter: fullscreen/windowed
+  B: toggle sound effects
+  - / +: adjust music volume on title screen
 
-CONTROLS
-- WASD or Arrow Keys: Move
-- Mouse: Aim
-- Left Mouse Button: Shoot
-- 1: Pistol
-- 2: Shotgun (fires a spread of pellets)
-- 3: Rifle (rapid fire)
-- R: Reload
-- ESC or P: Pause/resume
-- M: Return to main menu (while playing)
-- Enter/Space: Start from main menu
-- R: Restart after game over
-- Enter: Main menu after game over
+Choose SETTINGS on the title screen for separate music and SFX volume controls, audio toggles, fullscreen mode and Easy / Normal / Hard difficulty.
 
-FEATURES
-- Top-down zombie survival with progressively harder waves
-- Procedurally drawn arena, player, zombies, bullets and power-ups
-- Pistol, shotgun, rifle, weapon-specific ammo and reload times
-- Health and ammo pickups can drop from zombies
-- Synthesized sound effects if the system audio mixer is available
-- Main menu, pause overlay, game-over screen and local high score
-- No external images/audio assets are required
+Features include multiple weapons and reloads, zombie waves/types, powerups, flashlight, radar, pause/restart, a mission report with survival time and persistent high score.
 
-NOTES
-- highscore.txt is created in the working directory after you achieve a new high score.
-- If pygame audio cannot initialize, the game still runs without sound.
-- Run main.py from this folder so the high score file is saved here.
+Music asset: assets/gameplay_music.wav. The game can run without audio if mixer initialization fails.
+
+No EXE is built in this update.

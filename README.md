@@ -1,43 +1,37 @@
-# Zombie-Survival-Last-Stand## Requirements
+# Zombie Survival: The Last Stand
 
-- **Python:** 3.13 (tested)
-- **Pygame:** Installed automatically using `requirements.txt`
+A top-down Pygame survival game with increasing zombie waves, weapon switching and reloads, power-ups, flashlight, radar, sound effects and a gritty procedural arena.
 
-## How to Run the Game (Windows)
+## Run from source
 
-1. Clone or download this repository.
-2. Open the project folder in VS Code.
-3. Open the terminal and create a virtual environment:
+Requirements: Python 3.10+ and Pygame.
 
-   ```powershell
-   py -3.13 -m venv .venv
-   ```
+```powershell
+python -m pip install -r requirements.txt
+python main.py
+```
 
-4. Activate the environment:
+## Controls
 
-   ```powershell
-   .\.venv\Scripts\Activate.ps1
-   ```
+- **WASD / Arrow keys:** move
+- **Mouse:** aim and fire
+- **1 / 2 / 3:** select pistol / shotgun / rifle
+- **R:** reload
+- **F:** flashlight
+- **ESC / P:** pause or resume
+- **M:** return to title menu while playing
+- **F11 / Alt+Enter:** toggle fullscreen / windowed
+- **B:** toggle sound effects on/off
+- **- / +:** adjust music volume on the title screen
 
-5. Install the required packages:
+## Settings
 
-   ```powershell
-   python -m pip install -r requirements.txt
-   ```
+Choose **Settings** on the title screen to change music and sound-effects volume independently, toggle either audio channel, choose Easy / Normal / Hard difficulty, and switch fullscreen/windowed mode. Difficulty changes zombie count, speed and health.
 
-6. Start the game:
+The game-over mission report includes final score, wave reached, hostiles eliminated, survival time and personal best.
 
-   ```powershell
-   python main.py
-   ```
+## Assets and saved scores
 
-## Features
+The background track is `assets/gameplay_music.wav`. The game can continue without audio if the mixer or audio device is unavailable. High scores are saved beside the source/game when writable, with a per-user save location fallback for protected install folders.
 
-- Zombie survival gameplay with increasing waves
-- Multiple weapons and ammunition
-- Health and ammo power-ups
-- Background music and sound effects
-- Main menu, pause screen, and game-over screen
-- High-score saving
-
-**Note:** Python 3.13 is the version tested successfully for this project. Other Python versions may require compatibility testing.
+This is a source-only update. No EXE has been built.

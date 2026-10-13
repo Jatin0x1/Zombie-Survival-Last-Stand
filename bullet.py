@@ -26,7 +26,10 @@ class Bullet:
         self.rect.center = (round(self.x), round(self.y))
 
     def draw(self, screen):
-        pygame.draw.circle(screen, self.color, self.rect.center, max(2, self.size // 2))
+        tail = (int(self.x - self.dx * 13), int(self.y - self.dy * 13))
+        pygame.draw.line(screen, (72, 55, 29), tail, self.rect.center, 5)
+        pygame.draw.line(screen, self.color, tail, self.rect.center, 2)
+        pygame.draw.circle(screen, (255, 239, 177), self.rect.center, max(2, self.size // 2))
 
     def is_off_screen(self):
         return (self.x < 0 or self.x > WIDTH or self.y < 0 or self.y > HEIGHT)
