@@ -65,17 +65,28 @@ class Zombie:
         self.color = stats["color"]
         self.damage = stats["damage"]
         self.wobble = random.uniform(0, math.tau)
+        self.hit_flash = 0
 
     def update(self, player):
         dx = player.rect.centerx - self.rect.centerx
         dy = player.rect.centery - self.rect.centery
         distance = math.hypot(dx, dy)
-
         if distance > 0:
-            self.rect.x += round(dx / distance * self.speed)
-            self.rect.y += round(dy / distance * self.speed)
-
-        self.wobble += 0.08
+            vx = round(dx / distance * self.speed)
+            vy = round(dy / distance * self.speed)
+            obstacles = [pygame.Rect(*item[:4]) for item in MAP_OBSTACLES]
+            self.rect.x += vx
+            for obstacle in obstacles:
+                if self.rect.colliderect(obstacle):
+                    self.rect.x -= vx
+                    break
+            self.rect.y += vy
+            for obstacle in obstacles:
+                if self.rect.colliderect(obstacle):
+                    self.rect.y -= vy
+                    break
+        self.wobble += 0.12 if distance > 0 else 0.04
+        self.hit_flash = max(0, self.hit_flash - 1)
 
     def draw(self, screen):
         # Shadow
@@ -83,7 +94,14 @@ class Zombie:
         pygame.draw.ellipse(screen, (12, 13, 12), shadow)
 
         # Body and head
-        pygame.draw.ellipse(screen, self.color, self.rect)
+        bob = int(math.sin(self.wobble) * 2)
+        body = self.rect.move(0, bob)
+        body_color = (205, 190, 170) if self.hit_flash else self.color
+        pygame.draw.ellipse(screen, body_color, body)
+        # Ragged animated arms
+        arm_swing = int(math.sin(self.wobble * 1.6) * 5)
+        pygame.draw.line(screen, (78, 78, 62), (body.centerx - 4, body.centery), (body.left - 5, body.centery + 7 + arm_swing), 5)
+        pygame.draw.line(screen, (78, 78, 62), (body.centerx + 4, body.centery), (body.right + 5, body.centery + 7 - arm_swing), 5)
         head_radius = max(5, self.size // 5)
         head = (
             self.rect.centerx,
